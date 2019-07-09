@@ -1,0 +1,317 @@
+Send these codes from your Arduino with a 'Serial.println'
+(The data burst needs to end with a linefeed)
+There is nothing else for you to do. It will go to FSX automatically.
+Some of these may not work on some planes. (Test them to check they work)
+
+Simconnect direct injection codes.
+
+Below are the codes you would send from the Arduino to do the required command.
+You only need to send it once.
+Make sure they are sent with "Serial.println(code)" command.
+Note the println ,, as this sends the required linefeed after the code.
+
+Examples ,,,
+To raise the gear ,,,
+Serial.println("C01");
+
+To lower the gear ,,
+Serial.println("C02");
+
+To turn the autopilot on ,,
+Serial.println("B03");
+
+To set the transponder to 3254 ,,
+Serial.println("A423254");
+
+Make sure it's a capital letter.
+This has nothing to do with the "Keys" section.
+Just send the code from the Arduino and it will happen.
+Easy, isn't it.?????
+
+---- RADIO's  Codes --------------------------------------------------
+
+A01	Decrements COM by one MHz
+A02	Increments COM by one MHz
+A03	Decrements COM by 25 KHz
+A04	Increments COM by 25 KHz
+A05xxxx	Sets COM frequency (In Hz) (A05 and 4 digits, the '1' is assumed, no dot)
+A06	Swaps COM 1 frequency with standby
+A07	Decrements COM2 by one MHz
+A08	Increments COM2 by one MHz
+A09	Decrements COM2 by 25 KHz
+A10	Increments COM2 by 25 KHz
+A11xxxx	Sets COM2 frequency(In Hz) (A11 and 4 digits, the '1' is assumed, no dot)
+A12	Swaps COM 2 frequency with standby
+A13	Decrements Nav 1 by one MHz
+A14	Increments Nav 1 by one MHz
+A15	Decrements Nav 1 by 25 KHz
+A16	Increments Nav 1 by 25 KHz
+A17xxxx	Sets NAV 1 frequency (In Hz) (A17 and 4 digits, the '1' is assumed, no dot)
+A18	Swaps NAV 1 frequency with standby
+A19	Decrements Nav 2 by one MHz
+A20	Increments Nav 2 by one MHz
+A21	Decrements Nav 2 by 25 KHz
+A22	Increments Nav 2 by 25 KHz
+A23xxxx	Sets NAV 2 frequency (In Hz) (A23 and 4 digits, the '1' is assumed, no dot)
+A24	Swaps NAV 2 frequency with standby
+A25	Increments ADF by 100 KHz
+A26	Increments ADF by 10 KHz
+A27	Increments ADF by 1 KHz
+A28	Increments ADF 1 by 0.1 KHz.
+A29	Decrements ADF by 100 KHz
+A30	Decrements ADF by 10 KHz
+A31	Decrements ADF by 1 KHz
+A32	Decrements ADF 1 by 0.1 KHz.
+A33xxxxx   Sets ADF 1 frequency (In Hz)  (A33 and 5 digits, no dot)
+A34	Increments first digit of transponder
+A35	Increments second digit of transponder
+A36	Increments third digit of transponder
+A37	Increments fourth digit of transponder
+A38	Decrements first digit of transponder
+A39	Decrements second digit of transponder
+A40	Decrements third digit of transponder
+A41	Decrements fourth digit of transponder
+A42xxxx	Sets transponder code (A42 + 4 digits)
+A43x	Sets the avionics master switch (0,1) A431 is on, A430 is off
+A44	Toggles between NAV 1 and NAV 2
+A45	Selects COM 1 to transmit
+A46	Selects COM 2 to transmit
+A47	Toggles all COM radios to receive on
+A48	Toggles NAV 1 ID
+A49	Toggles NAV 2 ID
+A50	Toggles DME 1 ID
+A51	Toggles DME 2 ID
+A52	Toggles ADF 1 ID
+A53	Toggles marker beacon sound on/off
+A60x          DME select (A601 is DME1, A602 is DME2)
+
+--- AUTOPILOT  Codes -----------------------------------------------------
+
+A54	Toggles between GPS and NAV 1 driving NAV 1 OBS display (and AP)
+A55	Decrements VOR 1's OBS setting (Course)
+A56	Increments VOR 1's OBS setting  (Course)
+A57	Increments heading hold reference bug
+A58	Decrements heading hold reference
+A59xxx	Set heading hold reference bug (degrees) (A59 and 1 to 3 digits)
+B01	Toggles AP on/off
+B02	Turns AP off
+B03	Turns AP on
+B04	Toggles heading hold mode
+B05	Toggles altitude hold mode
+B06	Toggles wing leveler mode
+B07	Turns AP localizer hold on/armed and glide-slope hold mode off
+B08	Toggle, Turns both AP localizer and glide-slope modes on/armed
+B09	Toggles the backcourse mode for the localizer hold
+B10	Toggles the nav hold mode
+B11	Increments reference altitude
+B12	Decrements reference altitude
+B13	Increments vertical speed reference
+B14	Decrements vertical speed reference
+B15	Increments airspeed hold reference
+B16	Decrements airspeed hold reference
+B17	
+B18	Increments reference mach
+B19	Decrements reference mach
+B20	Toggles mach hold
+B21xxxx	Sets reference vertical speed in feet per minute (B21 & 3 or 4 digits)
+B22xxx	Sets airspeed reference in knots (B22 and 1 to 3 digits)
+B23xxx	Sets mach reference (B23 and 1 to 3 digits,  no dot)
+B24	Turns airspeed hold on
+B25	Turns airspeed hold off
+B26           Toggle airspeed hold
+B26x	Sets airspeed hold on/off (1,0)  (B261is on, B260 is off)
+B27	Turns mach hold on
+B28	Turns mach hold off
+B29x	Sets mach hold on/off (1,0)  (B291is on, B290 is off)
+B30	Toggles flight director on/off
+B30x         Sets flight director on/off  (B301 is on, B300 is off)
+B31	Toggle N1 hold
+B32xxxxx  Sets altitude reference in feet  (B32 with 3 to 5 digits)
+B33xxx      Sets OBS 1 (0 – 360)  (B32 with 1 to 3 digits)
+B34           Toggle Autothrottle armed
+B34x         Set autothrottle armed on/off  (B341 is on, B340 is off)
+B35           Syncs altimeter setting to sea level pressure, or 29.92 if above 18000 feet 
+
+--- OTHER  Codes------------------------------------------------------
+
+C01	Sets gear handle in UP position
+C02	Sets gear handle in DOWN
+C03	Toggle gear handle
+C04	Toggle parking brake on/off
+C04x         Parking brake on/off (C041 is ON, C040 is off)
+C05	Turns pitot heat switch on
+C06	Turns pitot heat switch off
+C07	Adds fuel to the aircraft, 25% of capacity at a time.
+C08	Toggles pause on/off
+C09	Turns on or off the fuel dump switch.
+C10	Release one droppable object. Multiple key events will release multiple objects.
+C11	Start up the auxiliary power unit (APU).(See E30)
+C12	Extinguish all engine fires.
+C13	Sets flap handle to full retract position
+C14	Increments flap handle position
+C15	Decrements flap handle position
+C16	Sets flap handle to full extension position
+C17xxx	Sets flap handle to closest increment (0 – 100%) (C17 with 1 to 3 digits)
+C18	Increment elevator trim up
+C19	Increments elevator trim down
+C20	Sets auto-spoiler arming on
+C21	Spoilers off
+C22	Toggles spoiler handle
+C23	Sets spoiler handle to full extend position
+C24	Sets spoiler handle to full retract position
+C25          Increase Kohlsman reading (Altimeter)
+C26          Decrease Kohlsman reading (Altimeter)
+C27          Increments rudder trim left
+C28          Increments rudder trim right 
+C29          Toggle "Push back" on/off
+C30xxx    Cowl flap 1 set (0 – 100%) (C30 and 1 to 3 digits) 
+C31xxx    Cowl flap 2 set (0 – 100%) (C30 and 1 to 3 digits) 
+C32          Floats down (depends on plane if it works)
+C33          Floats up (depends on plane if it works)
+C34          Toggle smoke
+C35          Smoke On
+C36          Smoke Off
+C37          Toggle wing folding
+C38          Toggle tail hook handle
+C39          Toggle water rudder
+
+---  LIGHTS  Codes ---------------------------------------------
+
+C41x       Nav lights   (C411 is On, C410 is Off)
+C42x       Beacon lights   (C421 is On, C420 is Off)
+C43x       Landing lights   (C431 is On, C430 is Off)
+C44x       Taxi lights   (C441 is On, C440 is Off) 
+C45x       Strobe lights   (C451 is On, C450 is Off)
+C46x       Panel lights   (C461 is On, C460 is Off)
+C47x       Recognition lights   (C471 is On, C470 is Off)
+C48x       Wing lights   (C481 is On, C480 is Off) 
+C49x       Logo lights   (C491 is On, C490 is Off) 
+C50x       Cabin lights   (C501 is On, C500 is Off) 
+
+---  ELECTRICAL  Codes  ----------------------------
+
+A43x        Sets the avionics master switch (0,1) A431 is on, A430 is off
+E01          Set engine 1 magnetos off 
+E02          Toggle engine 1 right magneto
+E03          Toggle engine 1 left magneto
+E04          Set engine 1 magnetos on 
+E05          Set engine 1 magnetos on and toggle starter
+E06          Set engine 2 magnetos off
+E07          Toggle engine 2 right magneto 
+E08          Toggle engine 2 left magneto
+E09          Set engine 2 magnetos on 
+E10          Set engine 2 magnetos on and toggle starter 
+E11          Set engine magnetos off
+E12          Set engine right magnetos on
+E13          Set engine left magnetos on 
+E14          Set engine magnetos on 
+E15          Set engine magnetos on and toggle starters (all)
+E16          Toggle master battery switch
+E17          Master battery switch OFF
+E18          Master battery switch ON
+E19          No.1  Alternator (generator) Toggle
+E20          No.1  Alternator (generator) OFF
+E21          No.1  Alternator (generator) ON
+E22          No.2  Alternator (generator) Toggle
+E23          No.2  Alternator (generator) OFF
+E24          No.2  Alternator (generator) ON
+E25          Toggle master alternator on/off
+E26          Toggle master ignition switch  on/off
+E27          Hydraulic pump switch 1    (E27 is toggle, E271 is On, E270 is Off)
+E28          Hydraulic pump switch 2    (E28 is toggle, E281 is On, E280 is Off)
+E29          Hydraulic pump switch 3    (E29 is toggle, E291 is On, E290 is Off)
+C11         APU start 
+E30          APU stop
+E31          APU generator On
+E32          APU generator Off
+E33          Prop syncro switch   (E33 is toggle, E331 is on, E330 is off)
+E34          Toggle all starters
+E35          Triggers engine auto start
+E36          Triggers engine auto shut down
+E37          Triggers engine primer
+E38          Toggle master ignitian switch
+E39          Toggle master battery and alternator switch
+E40          
+E41          Toggle starter 1
+E42          Starter 1  On
+E43          Starter 1  Off
+E44         Toggle starter 2
+E45         Starter 2 On
+E46         Starter 2 Off
+
+--- FUEL  Systems  ---------------------------------------------
+
+F01       Toggle fuels pumps on/off
+F02x     Engine 1 fuel pump. (F021 is On, F020 is Off)
+F03x     Engine 2 fuel pump. (F031 is On, F030 is Off)
+F04x     Sets fuel selector 1 position (F04 and 1 or 2 digits ) (see list below)
+F05x     Sets fuel selector 2 position (F05 and 1 or 2 digits ) (see list below)
+		0 = Off
+		1 = All
+		2 = Left
+		3 = Right
+		4 = Left Aux
+		5 = Right Aux
+		6 = Center
+		7 = Center2
+		8 = Center3
+		9 = External1
+		10 = External2
+		11 = Right tip
+		12 = Left tip
+		13 = Crossfeed
+		14 = Crossfeed left to right
+		15 = Crossfeed right to left
+		16 = Both
+		17 = External all
+		18 = Isolate
+F06        Crossfeed  On
+F07        Crossfeed Off
+F08        Add some fuel to total volume
+F09        Turns on or off the fuel dump switch
+F30        Toggle engine fuel valves
+F31        Toggle engine 1 fuel valve
+F32        Engine 1 fuel valve On
+F33        Engine 1 fuel valve Off
+F34        Toggle engine 2 fuel valve
+F35        Engine 2 fuel valve On
+F36        Engine 2 fuel valve Off
+
+--- ANTI - ICE  Codes  --------------------------------------
+
+F10        Anti ice On  
+F11        Anti ice Off 
+F12        Anti ice Toggle  
+F13        Engine1 anti ice Off
+F14        Engine1 anti ice On
+F15        Engine2 anti ice Off
+F16        Engine2 anti ice On
+F17        Toggle structural de-ice
+F18        Toggles propeller de-ice
+
+---  HELICOPTERS  --------  Not tested, Maybe r22 only  ---------------
+
+F19        Triggers rotor braking input
+F20        Toggles on electric rotor clutch switch
+F21        Sets electric rotor clutch switch On 
+F22        Sets electric rotor clutch switch Off 
+F23        Toggles the electric rotor governor switch
+F24        Sets the electric rotor governor switch On
+F25        Sets the electric rotor governor switch Off
+F26        Increments the lateral (right) rotor trim
+F27        Decrements the lateral (right) rotor trim
+
+As mentioned above, some of these may not work on some planes.
+Don't blame me ,, some planes are not set up 100% for simconnect ,,,
+even M$ with the Baron ,, the de-ice wont work ,,
+so TEST  THEM  FIRST before coding the Arduino for a particular planes function.
+
+Also note ,,,
+Some knobs or switches that appear to not work, actually may be working because 
+the developer has not added the code to change the visual switch that you see.
+Also if "X" wont work ,,, check that "Y" (and maybe "Z") is in the 'on' (or off) 
+position first as some simconnect commands do away with the automatic 
+'systems' stuff that happens for the casual user.
+
+
+
