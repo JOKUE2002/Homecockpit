@@ -41,7 +41,7 @@ In the "_parts_" folder there is a list of all the parts, that have been used to
 If we had to guess this would be like one third done. There are still ~~a few~~ a lot of the planed panels missing. Also the main frame is still a work in progress.
 
 ### Individual statuses
-[] Frame: 70%
-[] Firmware: 40%
-[] Panels: 40%
-[] whole prject: 30%
+* Frame: 70%
+* Firmware: 40%
+* Panels: 40%
+* whole project: 30%
