@@ -30,14 +30,22 @@ The frame features:
 * Advanced RadioPanel
   * SQUAWK display + setting buttons; com/nav selector/switch buttons
   * hardware work in progress (50% done)
-  * software not yet started (0%)
+  * software not yet started, but easy (0%)
+
+## Which panels are still planned?
+* Landing gear lever
+  * lever that controlls the landing gear, with indicators (green/red/off)
+* simulatorcommands
+  * buttons to command fsx (pause, slew mode, kneeboard, ...)
+* Electrical Panel
+  * Lights, APU, Generators, ...
 
 ## What's included?
-In the "_pcb_" folder, there are the schematic files for the custom PCBs we designed and ordered to make things easyer.
+In the "_pcb_" folder, there are the EAGLE **.sch**ematic/**.b**oa**rd** files for the custom PCBs we designed and ordered to make things easyer.
 In the "_firmware_" folder there are nearly all iterations of the firmaware, including the current version ("_FSX_3.0_").
 In the "_parts_" folder there is a list of all the parts, that have been used to build the cockpit.
 
-## How far is it?
+## How much is done is it?
 If we had to guess this would be like one third done. There are still ~~a few~~ a lot of the planed panels missing. Also the main frame is still a work in progress.
 
 ### Individual statuses
@@ -45,3 +53,11 @@ If we had to guess this would be like one third done. There are still ~~a few~~ 
 * Firmware: 40%
 * Panels: 40%
 * whole project: 30%
+
+## Who's contributing?
+Currently there are two main contributers:
+Jonas (Hardware & Software specialist)
+Cornelius (Flightsim/flying & design specialist)
+
+## How can you contact us / help us?
+Just create an issue. We'll answer on it as soon as possible.
