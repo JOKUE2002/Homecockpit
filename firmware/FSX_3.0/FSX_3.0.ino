@@ -85,13 +85,32 @@
 /**
  * Pinout definition
  */
-#define AP2DATA 5
-#define AP2CLK 6
-#define AP2LATCH 7
 
-#define AP1DATA 2
-#define AP1CLK 3
-#define AP1LATCH 4
+#define AP1DATA 22
+#define AP1CLK 23
+#define AP1LATCH 24
+
+#define AP2DATA 25
+#define AP2CLK 26
+#define AP2LATCH 27
+
+
+#define COM1DATA 28
+#define COM1CLK 29
+#define COM1LATCH 30
+
+#define COM2DATA 31
+#define COM2CLK 32
+#define COM2LATCH 33
+
+
+#define NAV1DATA 34
+#define NAV1CLK 35
+#define NAV1LATCH 36
+
+#define NAV2DATA 37
+#define NAV2CLK 38
+#define NAV2LATCH 39
 
 /**
  * Definition of data w/o dot on
@@ -112,28 +131,14 @@ B01000000
 };
 
 /**
- * Definition of data w/ dot on
- * Data: "0.", "1.", "2.", "3.", "4.", "5.", "6.", "7.", "8.", "9.", "-."
- */
-byte dataArrayWithDot[11] = 
-{B10111111,
-B10000110,
-B11011011,
-B11001111,
-B11100110,
-B11101101,
-B11111101,
-B10000111,
-B11111111,
-B11101111,
-B11000000
-};
-
-/**
  * bytearrays holding the data for displays (1 and 2)
  */
 byte ap1data[9];
 byte ap2data[11];
+byte com1data[10];
+byte com2data[10];
+byte nav1data[10];
+byte nav2data[10];
 
 /**
  * MAIN SETUP
@@ -170,8 +175,6 @@ void setup() {
  * 5. update displays
  */
 void loop() {
-  clearData();
-  
   if(Serial.available()){
     
     char charIn = getChar();
@@ -187,15 +190,15 @@ void loop() {
       }
       
       if(charIn == 'e'){//CRS
-        ap1data[0] = getDataForNextChar();
-        ap1data[1] = getDataForNextChar();
-        ap1data[2] = getDataForNextChar();
-      }
-      
-      if(charIn == 'f'){//SPD
         ap1data[6] = getDataForNextChar();
         ap1data[7] = getDataForNextChar();
         ap1data[8] = getDataForNextChar();
+      }
+      
+      if(charIn == 'f'){//SPD
+        ap1data[0] = getDataForNextChar();
+        ap1data[1] = getDataForNextChar();
+        ap1data[2] = getDataForNextChar();
       }
 
       if(charIn == 'b'){//ALT
@@ -214,10 +217,85 @@ void loop() {
         ap2data[9] = getDataForNextChar();
         ap2data[10] = getDataForNextChar();
       }
+
+      if(charIn == 'A'){//Com1Active
+        com1data[0] = getDataForNextChar();
+        com1data[1] = getDataForNextChar();
+        com1data[2] = getDataForNextChar() || B10000000;
+        getChar();
+        com1data[3] = getDataForNextChar();
+        com1data[4] = getDataForNextChar();
+        getChar();
+      }
+
+      if(charIn == 'B'){//Com1Standby
+        com1data[5] = getDataForNextChar();
+        com1data[6] = getDataForNextChar();
+        com1data[7] = getDataForNextChar() || B10000000;
+        getChar();
+        com1data[8] = getDataForNextChar();
+        com1data[9] = getDataForNextChar();
+        getChar();
+      }
+
+      if(charIn == 'C'){//Com2Active
+        com2data[0] = getDataForNextChar();
+        com2data[1] = getDataForNextChar();
+        com2data[2] = getDataForNextChar() || B10000000;
+        getChar();
+        com2data[3] = getDataForNextChar();
+        com2data[4] = getDataForNextChar();
+        getChar();
+      }
+
+      if(charIn == 'D'){//Com2Standby
+        com2data[5] = getDataForNextChar();
+        com2data[6] = getDataForNextChar();
+        com2data[7] = getDataForNextChar() || B10000000;
+        getChar();
+        com2data[8] = getDataForNextChar();
+        com2data[9] = getDataForNextChar();
+        getChar();
+      }
+
+      if(charIn == 'E'){//Nav1Active
+        nav1data[0] = getDataForNextChar();
+        nav1data[1] = getDataForNextChar();
+        nav1data[2] = getDataForNextChar() || B10000000;
+        getChar();
+        nav1data[3] = getDataForNextChar();
+        nav1data[4] = getDataForNextChar();
+      }
+
+      if(charIn == 'F'){//Nav1Standby
+        nav1data[5] = getDataForNextChar();
+        nav1data[6] = getDataForNextChar();
+        nav1data[7] = getDataForNextChar() || B10000000;
+        getChar();
+        nav1data[8] = getDataForNextChar();
+        nav1data[9] = getDataForNextChar();
+      }
+
+      if(charIn == 'G'){//Nav2Active
+        nav2data[0] = getDataForNextChar();
+        nav2data[1] = getDataForNextChar();
+        nav2data[2] = getDataForNextChar() || B10000000;
+        getChar();
+        nav2data[3] = getDataForNextChar();
+        nav2data[4] = getDataForNextChar();
+      }
+
+      if(charIn == 'H'){//Nav2Standby
+        nav2data[5] = getDataForNextChar();
+        nav2data[6] = getDataForNextChar();
+        nav2data[7] = getDataForNextChar() || B10000000;
+        getChar();
+        nav2data[8] = getDataForNextChar();
+        nav2data[9] = getDataForNextChar();
+      }
     }
 
-    updateAP1();
-    updateAP2();
+    updateDisplays();
   }
 }
 
@@ -262,11 +340,19 @@ byte getDataForNextChar() {
 }
 
 /**
+ * Calls all display update functions
+ */
+void updateDisplays() {
+  updateAP1();
+  updateAP2();
+ }
+
+/**
  * Writes data from ap1data-array to display1
  */
 void updateAP1() {
   digitalWrite(AP1LATCH, LOW);
-  for(int i = 0; i < 9; i++){
+  for(int i = 9; i >= 0; i--){
     delay(1);
     shiftOut(AP1DATA, AP1CLK, MSBFIRST, ~ap1data[i]);
   }
@@ -278,7 +364,7 @@ void updateAP1() {
  */
 void updateAP2() {
   digitalWrite(AP2LATCH, LOW);
-  for(int i = 0; i < 10; i++){
+  for(int i = 10; i >= 0; i--){
     delay(1);
     shiftOut(AP2DATA, AP2CLK, MSBFIRST, ~ap2data[i]);
   }
@@ -286,7 +372,55 @@ void updateAP2() {
 }
 
 /**
- * Clears data from both ap*data-arrays and both displays
+ * Writes data from com1data- & com1sbdata-array to display3
+ */
+void updateCom1() {
+  digitalWrite(COM1LATCH, LOW);
+  for(int i = 10; i >= 0; i--){
+    delay(1);
+    shiftOut(COM1DATA, COM1CLK, MSBFIRST, ~com1data[i]);
+  }
+  digitalWrite(COM1LATCH, HIGH);
+}
+
+/**
+ * Writes data from com2data- & com2sbdata-array to display4
+ */
+void updateCom2() {
+  digitalWrite(COM2LATCH, LOW);
+  for(int i = 4; i >= 0; i--){
+    delay(1);
+    shiftOut(COM2DATA, COM2CLK, MSBFIRST, ~com2data[i]);
+  }
+  digitalWrite(COM2LATCH, HIGH);
+}
+
+/**
+ * Writes data from nav1data- & nav1sbdata-array to display5
+ */
+void updateNav1() {
+  digitalWrite(NAV1LATCH, LOW);
+  for(int i = 10; i >= 0; i--){
+    delay(1);
+    shiftOut(NAV1DATA, NAV1CLK, MSBFIRST, ~nav1data[i]);
+  }
+  digitalWrite(NAV1LATCH, HIGH);
+}
+
+/**
+ * Writes data from nav2data- & nav2data-array to display6
+ */
+void updateNav2() {
+  digitalWrite(NAV2LATCH, LOW);
+  for(int i = 10; i >= 0; i--){
+    delay(1);
+    shiftOut(NAV2DATA, NAV2CLK, MSBFIRST, ~nav2data[i]);
+  }
+  digitalWrite(NAV2LATCH, HIGH);
+}
+
+/**
+ * Clears data from all *data-arrays and all displays
  */
 void clearData() {
   //Clear Ap1 display + data-array
@@ -307,4 +441,90 @@ void clearData() {
   }
   ap2data[10] = B00000000;
   digitalWrite(AP2LATCH, HIGH);
+
+  //Clear Com1 display + data-array
+  digitalWrite(COM1LATCH, LOW);
+  for(int i = 0; i < 10; i++){
+    delay(1);
+    shiftOut(COM1DATA, COM1CLK, MSBFIRST, ~B00000000);
+    com1data[i] = B00000000;
+  }
+  digitalWrite(COM1LATCH, HIGH);
+
+  //Clear Com2 display + data-array
+  digitalWrite(COM2LATCH, LOW);
+  for(int i = 0; i < 10; i++){
+    delay(1);
+    shiftOut(COM2DATA, COM2CLK, MSBFIRST, ~B00000000);
+    com2data[i] = B00000000;
+  }
+  digitalWrite(COM2LATCH, HIGH);
+
+  //Clear Nav1 display + data-array
+  digitalWrite(NAV1LATCH, LOW);
+  for(int i = 0; i < 10; i++){
+    delay(1);
+    shiftOut(NAV1DATA, NAV1CLK, MSBFIRST, ~B00000000);
+    nav1data[i] = B00000000;
+  }
+  digitalWrite(NAV1LATCH, HIGH);
+
+  //Clear Nav2 display + data-array
+  digitalWrite(NAV2LATCH, LOW);
+  for(int i = 0; i < 10; i++){
+    delay(1);
+    shiftOut(NAV2DATA, NAV2CLK, MSBFIRST, ~B00000000);
+    nav2data[i] = B00000000;
+  }
+  digitalWrite(NAV2LATCH, HIGH);
+}
+
+void fillData() {
+  //Clear Ap1 display + data-array
+  digitalWrite(AP1LATCH, LOW);
+  for(int i = 0; i < 9; i++){
+    delay(1);
+    shiftOut(AP1DATA, AP1CLK, MSBFIRST, B00000000);
+  }
+  digitalWrite(AP1LATCH, HIGH);
+
+  //Clear Ap2 display + data-array
+  digitalWrite(AP2LATCH, LOW);
+  for(int i = 0; i < 10; i++){
+    delay(1);
+    shiftOut(AP2DATA, AP2CLK, MSBFIRST, B00000000);
+  }
+  digitalWrite(AP2LATCH, HIGH);
+
+  //Clear Com1 display + data-array
+  digitalWrite(COM1LATCH, LOW);
+  for(int i = 0; i < 10; i++){
+    delay(1);
+    shiftOut(COM1DATA, COM1CLK, MSBFIRST, B00000000);
+  }
+  digitalWrite(COM1LATCH, HIGH);
+
+  //Clear Com2 display + data-array
+  digitalWrite(COM2LATCH, LOW);
+  for(int i = 0; i < 10; i++){
+    delay(1);
+    shiftOut(COM2DATA, COM2CLK, MSBFIRST, B00000000);
+  }
+  digitalWrite(COM2LATCH, HIGH);
+
+  //Clear Nav1 display + data-array
+  digitalWrite(NAV1LATCH, LOW);
+  for(int i = 0; i < 10; i++){
+    delay(1);
+    shiftOut(NAV1DATA, NAV1CLK, MSBFIRST, B00000000);
+  }
+  digitalWrite(NAV1LATCH, HIGH);
+
+  //Clear Nav2 display + data-array
+  digitalWrite(NAV2LATCH, LOW);
+  for(int i = 0; i < 10; i++){
+    delay(1);
+    shiftOut(NAV2DATA, NAV2CLK, MSBFIRST, B00000000);
+  }
+  digitalWrite(NAV2LATCH, HIGH);
 }
