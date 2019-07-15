@@ -3,7 +3,7 @@
  * (c) 2019 JOKUE2002 aka Jonas Kuehn
  * 
  * This panel can handle the autopilot and the radios of a 737 in FSX.
- * It's currently NOT using any extrenal library but one programs.
+ * It's currently NOT using any extrenal library but some programs.
  * 
  * 
  * LIBRARIES AND EXTRENAL PROGRAMS NEEDED(*) +NICE TO HAVES(+)
