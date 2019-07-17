@@ -20,12 +20,14 @@ C.
 1x Radio Overview/Transponder/Rest - Panel 3
 1x AP 1 - Panel 4
 1x AP 2 - Panel 4
-1x Lights/no Smoking/Seatbelt und Simulatorenbefehle (Pushback, Fluggastbruecke) - Panel 5
-1x landing gear (hochkant) u.Autobreak, Anzeige Flaps - Panel 7
-2x Engine Starter, Fuel Pump, APU, Generators, Battery (Electrical Panel) - Panel 6
+1x Lights und Simulatorenbefehle - Panel 5
+2x Engine and Electrical Panel - Panel 6 + 8
+1x Landing gear (hochkant) u. Autobreak + Anzeige Flaps - Panel 7
+
 1x Alarmpanel, Fire Suspension - Panel 5
 
 
 
 Ideen:
 Anzeigen fuer Flaps: OLED mit graphischer Oberflaeche/ 7-Segment um zweistellige Zahl anzuzeigen
+Alternative: 180° Servo-Motor mit Zeiger und Druck
